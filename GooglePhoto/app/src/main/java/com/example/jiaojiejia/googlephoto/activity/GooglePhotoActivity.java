@@ -1,6 +1,9 @@
 package com.example.jiaojiejia.googlephoto.activity;
 
+import android.Manifest;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -83,6 +86,8 @@ public class GooglePhotoActivity extends AppCompatActivity implements GooglePhot
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_google_photo);
 
+
+
         mPresenter = new GooglePhotoPresenter(this);
 
         setupToolbar();
@@ -92,6 +97,15 @@ public class GooglePhotoActivity extends AppCompatActivity implements GooglePhot
         initPhotoFolders();
 
         switchView(ViewType.MONTH);      // 默认显示月视图
+
+        setupPermission();
+    }
+
+    // @RequiresApi(api = Build.VERSION_CODES.M)
+    private void setupPermission() {
+        requestPermissions(
+                new String[] { Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE },
+                2);
     }
 
     /**
